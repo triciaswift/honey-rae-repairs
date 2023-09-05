@@ -4,6 +4,12 @@ export const getAllEmployees = () => {
   );
 };
 
+export const getEmployeeByUserId = (employeeId) => {
+  return fetch(
+    `http://localhost:8088/employees?userId=${employeeId}&_expand=user&_embed=employeeTickets`
+  ).then((res) => res.json());
+};
+
 /* -------------- Goes with extra example in ticket.js ---------------- */
 /*
 export const getEmployeeById = (employeeId) => {
