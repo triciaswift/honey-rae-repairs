@@ -4,7 +4,7 @@ import "./Tickets.css";
 import { Ticket } from "./Ticket";
 import { TicketFilterBar } from "./TicketFilterBar";
 
-export const TicketList = () => {
+export const TicketList = ({ currentUser }) => {
   //! useState() returns an array
   // useState(must give initial value to stateVariable or it's undefined)
   const [allTickets, setAllTickets] = useState([]); // [stateVariable, setterFunction]
@@ -12,13 +12,17 @@ export const TicketList = () => {
   const [filteredTickets, setFilteredTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  //! useEffect() callback function: what we want to happen, dependency array: when we want it to happen
-  // takes 2 arguments: (() => {}, [])
-  useEffect(() => {
+  const getAndSetTickets = () => {
     getAllTickets().then((ticketsArray) => {
       setAllTickets(ticketsArray);
       console.log("tickets set!");
     });
+  };
+
+  //! useEffect() callback function: what we want to happen, dependency array: when we want it to happen
+  // takes 2 arguments: (() => {}, [])
+  useEffect(() => {
+    getAndSetTickets();
   }, []); // ONLY runs on initial render of component
 
   useEffect(() => {
@@ -48,7 +52,14 @@ export const TicketList = () => {
       />
       <article className="tickets">
         {filteredTickets.map((ticketObj) => {
-          return <Ticket ticket={ticketObj} key={ticketObj.id} />;
+          return (
+            <Ticket
+              ticket={ticketObj}
+              currentUser={currentUser}
+              getAndSetTickets={getAndSetTickets}
+              key={ticketObj.id}
+            />
+          );
         })}
       </article>
     </div>
