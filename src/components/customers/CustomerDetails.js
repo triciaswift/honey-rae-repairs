@@ -5,17 +5,17 @@ import { getCustomerByUserId } from "../../services/customerService";
 
 export const CustomerDetails = () => {
   // /customer/3
-  // path="/customers/:customerId"
+  // path="/customers/:userId"
 
   const [customer, setCustomer] = useState({});
-  const { customerId } = useParams(); // { customerId: 3 }
+  const { userId } = useParams(); // { userId: 3 }
 
   useEffect(() => {
-    getCustomerByUserId(customerId).then((data) => {
+    getCustomerByUserId(userId).then((data) => {
       const customerObj = data[0];
       setCustomer(customerObj);
     });
-  }, [customerId]);
+  }, [userId]);
 
   return (
     <section className="customer">

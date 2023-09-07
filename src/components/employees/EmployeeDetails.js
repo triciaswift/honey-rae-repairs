@@ -5,14 +5,14 @@ import { getEmployeeByUserId } from "../../services/employeeService";
 
 export const EmployeeDetails = () => {
   const [employee, setEmployee] = useState({});
-  const { employeeId } = useParams();
+  const { userId } = useParams();
 
   useEffect(() => {
-    getEmployeeByUserId(employeeId).then((data) => {
+    getEmployeeByUserId(userId).then((data) => {
       const employeeObj = data[0];
       setEmployee(employeeObj);
     });
-  }, [employeeId]);
+  }, [userId]);
 
   return (
     <section className="employee">
